@@ -1,19 +1,23 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
+import {connect} from 'react-redux'
+import {removeUser} from '../redux/action'
 
 class Logout extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            // loggedToken: localStorage.getItem('token')
-        }
     }
 
-    render() {
-        return (
-          
-            <h2>logout</h2>
-        )
+    logout=()=>{
+        this.props.dispatch(removeUser())
+        localStorage.setItem("login","false")
+    }
+    componentDidMount(){
+       this.logout()
+    }
+    render(){
+        return <Redirect to="/" />
     }
 }
 
-export default Logout
+export default connect()(Logout)

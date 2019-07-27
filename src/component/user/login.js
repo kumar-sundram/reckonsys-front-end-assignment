@@ -2,6 +2,8 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { Button, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
 import loginData from './user.json'
+import {connect } from 'react-redux'
+import {setUser} from '../redux/action'
 
 class Login extends React.Component {
     constructor() {
@@ -34,7 +36,13 @@ class Login extends React.Component {
             email: this.state.email,
             password: this.state.password
         }
-        if(formData.email===loginData.user){
+        
+        if(formData.email===loginData.user && formData.password===loginData.password){
+            const user = {
+                name:loginData.name
+            }
+            this.props.dispatch(setUser(user))
+            localStorage.setItem("login",JSON.stringify({isAuthenticated:true,user:user}))
             this.setState(() => ({
                             email: '',
                             password: '',
@@ -46,6 +54,7 @@ class Login extends React.Component {
         if (this.state.redirectList) {
             return <Redirect to="/member" />
         }
+        // consolse.log('state',this.props)
         return (
             <div>
                 <Container>
@@ -95,4 +104,4 @@ class Login extends React.Component {
     }
 
 }
-export default Login
+export default connect()(Login)
