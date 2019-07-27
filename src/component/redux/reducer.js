@@ -1,7 +1,5 @@
 let login = JSON.parse(localStorage.getItem("login"))
-
 let initialState 
-console.log("reduc",login)
 if(login){
     initialState={isAuthenticated:true,user:login.user}
 }else{

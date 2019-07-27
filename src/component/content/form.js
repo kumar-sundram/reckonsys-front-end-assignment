@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import {Form, FormGroup, Label, Input, Container, Row, Col,FormFeedback,FormText } from 'reactstrap';
+import {Form, FormGroup, Label, Input, Container, Row, Col,FormText } from 'reactstrap';
 
 class AddMember extends React.Component {
   constructor(props) {
@@ -24,20 +24,20 @@ class AddMember extends React.Component {
         this.setState({name_error:'',email_error:'',mobile_error:''});
 
         var name   =   this.state.name;
-        if(name == null || name.trim().length == 0){
+        if(name === null || name.trim().length === 0){
             this.setState({name_error:'Name should not be empty'});
             return;
         }
 
         var email   =   this.state.email;
-        if(email == null || email.trim().length == 0){
+        if(email === null || email.trim().length === 0){
         
             this.setState({email_error:"Email is not valid"})
             return;
         }
 
         var mobile   =   this.state.mobile;
-        if(mobile == null || mobile.trim().length == 0 ){
+        if(mobile === null || mobile.trim().length === 0 ){
             this.setState({mobile_error:'mobile should not be empty'});
             return;
         }

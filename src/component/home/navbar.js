@@ -1,10 +1,10 @@
 import React from 'react';
 import {
     Collapse,
-    Navbar
+    Navbar,
+    NavbarBrand
 } from 'reactstrap';
 import {Link} from 'react-router-dom'
-import loginUser from '../user/user.json'
 import {connect} from 'react-redux'
  
  class NavBar extends React.Component {
@@ -22,13 +22,13 @@ import {connect} from 'react-redux'
         });
     }
     render() {
-        console.log("nav bar state",this.props)
         return (
             <div>
                 {this.props.user.isAuthenticated ? 
                 <Navbar color="light" light expand="md">
+                     <NavbarBrand >Admin Section</NavbarBrand>
                     <nav className="ml-auto" navbar>
-                        <Link >Admin Section</Link>&nbsp;&nbsp;
+                        {/* <Link >Admin Section</Link>&nbsp;&nbsp; */}
                         <Link to="/member">Members</Link>&nbsp;&nbsp;
                         <Link to="/product">Products</Link>&nbsp;&nbsp;
                         <Link to="/reporting">Reporting</Link>&nbsp;&nbsp;
@@ -45,6 +45,7 @@ import {connect} from 'react-redux'
                 :
                 
                 <Navbar color="light" light expand="md">
+                     <NavbarBrand >Reckonsys</NavbarBrand>
                     <nav className="ml-auto" navbar>
                         <Link to="/">Home</Link>&nbsp;&nbsp;
                            

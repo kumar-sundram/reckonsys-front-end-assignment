@@ -11,7 +11,7 @@ export default class AdminSection extends React.Component {
         }
     }
     delete=(id)=>{
-      let del=this.state.admin.filter((item)=> item.id!=id)
+      let del=this.state.admin.filter((item)=> item.id!==id)
       this.setState({admin:del})
     }
 

@@ -4,10 +4,6 @@ import {connect} from 'react-redux'
 import {removeUser} from '../redux/action'
 
 class Logout extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     logout=()=>{
         this.props.dispatch(removeUser())
         localStorage.setItem("login","false")

@@ -36,7 +36,7 @@ class Login extends React.Component {
             email: this.state.email,
             password: this.state.password
         }
-        
+
         if(formData.email===loginData.user && formData.password===loginData.password){
             const user = {
                 name:loginData.name
@@ -54,7 +54,6 @@ class Login extends React.Component {
         if (this.state.redirectList) {
             return <Redirect to="/member" />
         }
-        // consolse.log('state',this.props)
         return (
             <div>
                 <Container>
