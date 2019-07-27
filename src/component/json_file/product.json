@@ -1,0 +1,21 @@
+[
+    {   
+        "id":1,
+        "productName":"moto x play",
+        "brand":"motorola",
+        "price":16999
+    },
+    {
+        "id":2,
+        "productName":"moto x4",
+        "brand":"motorola",
+        "price":15999
+    },
+    {
+        "id":3,
+        "productName":"moto one vision",
+        "brand":"motorola",
+        "price":19999
+    }
+
+]

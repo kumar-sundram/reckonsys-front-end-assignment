@@ -1,0 +1,21 @@
+[
+    {   
+        "id":1,
+        "name":"kumar",
+        "email":"kumar@gmail.com",
+        "mobile":1234567890
+    },
+    {
+        "id":2,
+        "name":"sundram",
+        "email":"sundram@gmail.com",
+        "mobile":1234567890
+    },
+    {
+        "id":3,
+        "name":"jha",
+        "email":"jha@gmail.com",
+        "mobile":1234567890
+    }
+
+]
