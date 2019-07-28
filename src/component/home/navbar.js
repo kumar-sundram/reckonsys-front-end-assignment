@@ -2,7 +2,8 @@ import React from 'react';
 import {
     Collapse,
     Navbar,
-    NavbarBrand
+    NavbarBrand,
+    Nav
 } from 'reactstrap';
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -27,30 +28,27 @@ import {connect} from 'react-redux'
                 {this.props.user.isAuthenticated ? 
                 <Navbar color="light" light expand="md">
                      <NavbarBrand >Admin Section</NavbarBrand>
-                    <nav className="ml-auto" navbar>
-                        {/* <Link >Admin Section</Link>&nbsp;&nbsp; */}
+                    <Nav className="ml-auto" navbar>
                         <Link to="/member">Members</Link>&nbsp;&nbsp;
                         <Link to="/product">Products</Link>&nbsp;&nbsp;
                         <Link to="/reporting">Reporting</Link>&nbsp;&nbsp;
                         <Link to="/users">Users</Link>
-                    </nav>
+                    </Nav>
                     <h6 style={{'marginLeft':"936px",'marginTop':"8px"}}>{this.props.user.isAuthenticated ? this.props.user.user.name : ""}</h6>
                     <Collapse isOpen={this.state.isOpen} navbar>
-                        <nav className="ml-auto" navbar>
-                           
+                        <Nav className="ml-auto" navbar>
                             <Link to="/user/logout">Logout</Link>&nbsp;&nbsp;
-                        </nav>
+                        </Nav>
                     </Collapse>
                 </Navbar>
                 :
                 
                 <Navbar color="light" light expand="md">
                      <NavbarBrand >Reckonsys</NavbarBrand>
-                    <nav className="ml-auto" navbar>
+                    <Nav className="ml-auto" navbar>
                         <Link to="/">Home</Link>&nbsp;&nbsp;
-                           
-                            <Link to="/user/login">Login</Link>&nbsp;&nbsp;
-                            </nav>
+                        <Link to="/user/login">Login</Link>&nbsp;&nbsp;
+                    </Nav>
                 </Navbar>
                 }
             </div>

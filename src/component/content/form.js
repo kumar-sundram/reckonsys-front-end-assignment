@@ -19,6 +19,15 @@ class AddMember extends React.Component {
     this.toggle = this.toggle.bind(this);
   }
 
+  phoneValid(phone)  {
+    return /[0-9]{10}/.test(phone) ;
+  }
+  
+
+  validEmail(email)  {
+      return /(.+)@(.+){2,}\.(.+){2,}/.test(email) ;
+  }
+
   toggle() {
     
         this.setState({name_error:'',email_error:'',mobile_error:''});
@@ -32,13 +41,19 @@ class AddMember extends React.Component {
         var email   =   this.state.email;
         if(email === null || email.trim().length === 0){
         
-            this.setState({email_error:"Email is not valid"})
+            this.setState({email_error:"Email is required."})
+            return;
+        } else  if (!this.validEmail(email.trim())){
+            this.setState({email_error:"Email is not valid."})
             return;
         }
 
         var mobile   =   this.state.mobile;
         if(mobile === null || mobile.trim().length === 0 ){
             this.setState({mobile_error:'mobile should not be empty'});
+            return;
+        } else if (!this.phoneValid(mobile.trim())) {
+            this.setState({mobile_error:'mobile is not valid'});
             return;
         }
 
@@ -94,7 +109,7 @@ cancel=()=>{
                                 <FormGroup>
                                     <Label>
                                         Name<br />
-                                        <Input size="lg" type="text" value={this.state.name}  onChange={this.nameHandle}  />
+                                        <Input bsSize="lg" type="text" value={this.state.name}  onChange={this.nameHandle}  />
                                         <FormText color="danger">{this.state.name_error}</FormText>
                                     </Label>
                                 </FormGroup>
@@ -107,7 +122,7 @@ cancel=()=>{
                                 <FormGroup>
                                     <Label>
                                         Email <br />
-                                        <Input size="lg" type="email" value={this.state.email}  onChange={this.emailHandle}/>
+                                        <Input bsSize="lg" type="email" value={this.state.email}  onChange={this.emailHandle}/>
                                         <FormText color="danger">{this.state.email_error}</FormText>
                                     </Label>
                                 </FormGroup>
@@ -120,7 +135,7 @@ cancel=()=>{
                                 <FormGroup>
                                     <Label>
                                         Mobile<br />
-                                        <Input size="lg" type="number" value={this.state.mobile}  onChange={this.mobileHandle} />
+                                        <Input bsSize="lg" type="number" value={this.state.mobile}  onChange={this.mobileHandle} />
                                         <FormText color="danger">{this.state.mobile_error}</FormText>
                                     </Label>
                                 </FormGroup>

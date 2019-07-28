@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Button, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Container, Row, Col, FormText , Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import loginData from './user.json'
 import {connect } from 'react-redux'
 import {setUser} from '../redux/action'
@@ -12,14 +12,26 @@ class Login extends React.Component {
             email: '',
             password: '',
             hidden: true,
-            redirectList: false
+            redirectList: false,
+            password_error: '',
+            email_error: '',
+            modal: false
+ 
         }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle() {
+        this.setState(prevState => ({
+          modal: false
+        }));
     }
 
     handleChange(e) {
-        e.persist()
+        e.persist();
+        this.setState({password_error: '', email_error: ''});
         this.setState(() => ({
             [e.target.name]: e.target.value
         }))
@@ -29,12 +41,56 @@ class Login extends React.Component {
         this.setState({ hidden: !this.state.hidden });
     }
 
+    passwordValid(pwd)  {
+      let re = /[0-9]/;
+      if(!re.test(pwd)) {
+        return false;
+      }
+      re = /[A-Z]/;
+      if(!re.test(pwd)) {
+        return false;
+      }
+    
+      re = /[@#$%^&*]/;
+      if(!re.test(pwd)) {
+        return false;
+      }
+      
+      return true;
+    }
+    
+
+    validEmail(email)  {
+        return /(.+)@(.+){2,}\.(.+){2,}/.test(email) ;
+    }
+
     handleSubmit(e) {
         e.preventDefault()
-
+        this.setState({password_error: '', email_error: ''});
+        let valid  = true;
         const formData = {
             email: this.state.email,
             password: this.state.password
+        }
+
+        if (!formData.email) {
+            this.setState({email_error: 'Email is required' });
+            valid  = false;
+        } else if (!this.validEmail(formData.email)) {
+            this.setState({email_error: 'Email is not valid' });
+            valid  = false;
+        } 
+
+        if (!formData.password) {
+            this.setState({password_error: 'Password is required' });
+            valid  = false;
+        } else if (!this.passwordValid(formData.password)) {
+            this.setState({password_error: 'Password must have minimum of one special character, a number and a capital letter' });
+            valid  = false;
+        } 
+
+        if (!valid) {
+            return;
         }
 
         if(formData.email===loginData.user && formData.password===loginData.password){
@@ -48,6 +104,10 @@ class Login extends React.Component {
                             password: '',
                             redirectList: true
                         }))
+        } else {
+            this.setState(prevState => ({
+                modal: true
+              }));
         }
     }
     render() {
@@ -70,7 +130,8 @@ class Login extends React.Component {
                                 <FormGroup>
                                     <Label>
                                         Email<br />
-                                        <Input size="lg" type='text' value={this.state.email} onChange={this.handleChange} name="email" />
+                                        <Input bsSize="lg" type='text' value={this.state.email} onChange={this.handleChange} name="email" />
+                                        <FormText color="danger">{this.state.email_error}</FormText>
                                     </Label>
                                 </FormGroup>
                             </Col>
@@ -82,8 +143,10 @@ class Login extends React.Component {
                                 <FormGroup>
                                     <Label>
                                         Password<br />
-                                        <Input size="lg" type={this.state.hidden ? "password" : "text"} value={this.state.password} onChange={this.handleChange} name="password" /><br/>
+                                        <Input bsSize="lg" type={this.state.hidden ? "password" : "text"} value={this.state.password} onChange={this.handleChange} name="password" />
+                                        <FormText color="danger">{this.state.password_error}</FormText><br/>
                                         <Button size="sm" onClick={this.toggleShow}>Show/Hide</Button>
+                                        
                                     </Label>
                                 </FormGroup>
                             </Col>
@@ -97,6 +160,16 @@ class Login extends React.Component {
                         </Row>
                     </Container>
                 </Form>
+
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <ModalHeader toggle={this.toggle}>Invalid credentials</ModalHeader>
+                    <ModalBody>
+                        The credentials are not valid, Please verify the username and password.
+                    </ModalBody>      
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggle}>OK</Button>{' '}
+          </ModalFooter>
+        </Modal>
             </div>
         )
 

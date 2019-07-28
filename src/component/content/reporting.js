@@ -17,7 +17,7 @@ export default class Member extends React.Component {
           <tr>
             <th>#</th>
             <th>Reported By</th>
-            <th>Reported By</th>
+            <th>Reported To</th>
             <th>Time</th>
           </tr>
         </thead>
